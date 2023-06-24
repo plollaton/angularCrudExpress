@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/user';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -95,6 +94,10 @@ export class ListComponent implements OnInit{
       Username: "",
       Website: ""
     }
+  }
+
+  public onClickDelete(e: number){
+    this.userList.splice(e, 1);
   }
 
 }

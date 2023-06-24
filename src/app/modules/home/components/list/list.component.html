@@ -16,7 +16,7 @@
         <td>{{item.Phone}}</td>
         <td>{{item.Website}}</td>
         <td>
-            <app-delete></app-delete>
+            <app-delete (click)="onClickDelete(i)"></app-delete>
             <app-edit (click)="onClickEditar(i)"></app-edit>
         </td>
     </tr>
