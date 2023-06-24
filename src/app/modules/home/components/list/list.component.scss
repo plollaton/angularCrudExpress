@@ -1,0 +1,10 @@
+.buttonBar{
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px;
+}
+
+.button:last-child{
+    margin-left: 15px;
+}

@@ -1,0 +1,62 @@
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>UserName</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Site</th>
+        <th>Actions</th>
+    </tr>
+    <tr *ngFor="let item of userList; let i = index">
+        <td>{{item.Id}}</td>
+        <td>{{item.Name}}</td>
+        <td>{{item.Username}}</td>
+        <td>{{item.Email}}</td>
+        <td>{{item.Phone}}</td>
+        <td>{{item.Website}}</td>
+        <td>
+            <app-delete></app-delete>
+            <app-edit (click)="onClickEditar(i)"></app-edit>
+        </td>
+    </tr>
+</table>
+<section *ngIf="openEdit">
+    <div>
+        <form>
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="Username" [(ngModel)]="selectedItem.Username" name="username"/>
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name"  [(ngModel)]="selectedItem.Name" name="name"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="E-mail"  [(ngModel)]="selectedItem.Email" name="email"/>
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput placeholder="Phone"  [(ngModel)]="selectedItem.Phone" name="phone"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Website</mat-label>
+                <input matInput placeholder="Website"  [(ngModel)]="selectedItem.Website" name="website"/>
+            </mat-form-field>
+        </form>
+    </div>
+</section>
+<div class="buttonBar">
+    <button *ngIf="!editing; else saveButtons"  mat-fab color="primary" (click)="onClickAdd()">
+        <mat-icon>add</mat-icon>
+    </button>
+    <ng-template #saveButtons>
+        <div >
+            <button mat-raised-button color="primary" class="button" (click)="onClickSave()">Save</button>
+            <button mat-stroked-button color="primary" class="button" (click)="onClickCancel()">Cancel</button>
+        </div>
+    </ng-template>
+</div>
