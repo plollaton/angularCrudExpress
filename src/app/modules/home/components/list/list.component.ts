@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../model/user';
+import { UserService } from '../../service/user/user.service';
 
 @Component({
   selector: 'app-list',
@@ -8,72 +9,60 @@ import { User } from '../../model/user';
 })
 export class ListComponent implements OnInit{
 
+  @Input() public userList: Array<User> = [];
+
   public openEdit:boolean = false;
   public editing: boolean = false;
   public selectedItem: User = {
-    Id: -1,
-    Name: "",
-    Email: "",
-    Phone: "",
-    Username: "",
-    Website: ""
+    _id: "",
+    id: -1,
+    name: "",
+    email: "",
+    phone: "",
+    username: "",
+    website: ""
   };
 
-  public userList: Array<User> = [
-    {
-      Id: 1,
-      Name: "Leanne Graham",
-      Username: "Bret",
-      Email: "Sincere@april.biz",
-      Phone: "1-770-736-8031 x56442",
-      Website: "hildegard.org"
-    },
-    {
-      Id: 2,
-      Name: "Ervin Howell",
-      Username: "Antonette",
-      Email: "Shanna@melissa.tv",
-      Phone: "010-692-6593 x09125",
-      Website: "anastasia.net",
-    },
-    {
-      Id: 3,
-      Name: "Clementine Bauch",
-      Username: "Samantha",
-      Email: "Nathan@yesenia.net",
-      Phone: "1-463-123-4447",
-      Website: "ramiro.info",
-    },
-  ];
-
-  /**
-   *
-   */
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
-  ngOnInit(): void { }
-
-  public onClickEditar(e:number){
-    const item = this.userList[e];
-
-    this.selectedItem = {
-      Id: item.Id,
-      Name: item.Name,
-      Email: item.Email,
-      Phone: item.Phone,
-      Username: item.Username,
-      Website: item.Website
-    }
-    this.openEdit = true;
+  ngOnInit(): void {
+    this.loadUsers();
   }
 
-  public onClickSave(){
-    if (this.selectedItem.Id == -1){
-      this.userList.push(this.selectedItem)
-    } else {
-      this.userList[this.selectedItem.Id - 1] = this.selectedItem;
-    }
+  private loadUsers(){
+    this.userService.getAll().subscribe((value) => {
+      this.userList = value;    
+    });
+  }
+
+  public onClickEditar(e:string){
+    this.userService
+      .getUser(e)
+      .subscribe((value) => {
+        const item = value;
+        this.selectedItem = {
+          _id: item._id,
+          id: item.id,
+          name: item.name,
+          email: item.email,
+          phone: item.phone,
+          username: item.username,
+          website: item.website
+        }
+        this.openEdit = true;
+        this.editing = true;
+      });
+  }
+
+  public async onClickSave(){
+    await this.userService
+      .save(this.selectedItem)
+      .subscribe((value) => {
+        console.log('d');
+        console.log(value)
+        this.loadUsers();
+      });
     this.editing = false;
     this.openEdit = false;
   }
@@ -87,17 +76,18 @@ export class ListComponent implements OnInit{
     this.editing = true;
     this.openEdit = true;
     this.selectedItem = {
-      Id: -1,
-      Name: "",
-      Email: "",
-      Phone: "",
-      Username: "",
-      Website: ""
+      _id: "",
+      id: -1,
+      name: "",
+      email: "",
+      phone: "",
+      username: "",
+      website: ""
     }
   }
 
-  public onClickDelete(e: number){
-    this.userList.splice(e, 1);
+  public onClickDelete(e: string){
+    //this.userList.splice(e, 1);
   }
 
 }

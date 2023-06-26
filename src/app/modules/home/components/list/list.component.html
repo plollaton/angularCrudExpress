@@ -9,15 +9,15 @@
         <th>Actions</th>
     </tr>
     <tr *ngFor="let item of userList; let i = index">
-        <td>{{item.Id}}</td>
-        <td>{{item.Name}}</td>
-        <td>{{item.Username}}</td>
-        <td>{{item.Email}}</td>
-        <td>{{item.Phone}}</td>
-        <td>{{item.Website}}</td>
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.username}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.phone}}</td>
+        <td>{{item.website}}</td>
         <td>
-            <app-delete (click)="onClickDelete(i)"></app-delete>
-            <app-edit (click)="onClickEditar(i)"></app-edit>
+            <app-delete (click)="onClickDelete(item._id)"></app-delete>
+            <app-edit (click)="onClickEditar(item._id)"></app-edit>
         </td>
     </tr>
 </table>
@@ -26,25 +26,25 @@
         <form>
             <mat-form-field>
                 <mat-label>Username</mat-label>
-                <input matInput placeholder="Username" [(ngModel)]="selectedItem.Username" name="username"/>
+                <input matInput placeholder="Username" [(ngModel)]="selectedItem.username" name="username"/>
             </mat-form-field>
             <br />
             <mat-form-field>
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Name"  [(ngModel)]="selectedItem.Name" name="name"/>
+                <input matInput placeholder="Name"  [(ngModel)]="selectedItem.name" name="name"/>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>E-mail</mat-label>
-                <input matInput placeholder="E-mail"  [(ngModel)]="selectedItem.Email" name="email"/>
+                <input matInput placeholder="E-mail"  [(ngModel)]="selectedItem.email" name="email"/>
             </mat-form-field>
             <br />
             <mat-form-field>
                 <mat-label>Phone</mat-label>
-                <input matInput placeholder="Phone"  [(ngModel)]="selectedItem.Phone" name="phone"/>
+                <input matInput placeholder="Phone"  [(ngModel)]="selectedItem.phone" name="phone"/>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Website</mat-label>
-                <input matInput placeholder="Website"  [(ngModel)]="selectedItem.Website" name="website"/>
+                <input matInput placeholder="Website"  [(ngModel)]="selectedItem.website" name="website"/>
             </mat-form-field>
         </form>
     </div>
