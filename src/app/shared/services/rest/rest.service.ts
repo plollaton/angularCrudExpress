@@ -14,7 +14,7 @@ export class RestService {
   }
 
   public post(url: string, body: any, options?: any): Observable<any>{
-    return this.httpClient.post(url, body, {...options});
+    return this.httpClient.post(url, JSON.stringify(body), {...options});
   }
 
   public put(url: string, body: any, options?: any): Observable<any>{

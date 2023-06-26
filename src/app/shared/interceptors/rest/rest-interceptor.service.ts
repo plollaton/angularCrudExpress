@@ -26,7 +26,9 @@ export class RestInterceptorService implements HttpInterceptor {
 
     return req.clone({
       setHeaders:{
-        Authorization: token,
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json',
+        // Authorization: token,
       }
     });
   }
